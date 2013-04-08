@@ -1,0 +1,19 @@
+{% extends "HeticSearchBundle::layout.html.twig" %}
+
+
+{% block content %}
+	<h1>Résultat de la recherche: </h1>
+	<ul class="media-list">
+		{% for film in result %}
+			<li class="media well">
+				<div class="media-body">
+					<h4 class="media-heading">{{ film.title }}</h4>
+					<div><span class="icon-film"> </span><strong> Catégorie: </strong>{{ film.category.title }}</div>
+					<div class="media">{{ film.synopsis }}</div>
+					<a href="{{ path('hetic_search_view', { 'id': film.id }) }}" class="btn btn-inverse offset9">Voir la fiche du film</a>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+	
+{% endblock %}

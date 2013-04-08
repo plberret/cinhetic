@@ -1,0 +1,4 @@
+hetic_search:
+    resource: "@HeticSearchBundle/Resources/config/routing.yml"
+    prefix:   /
+

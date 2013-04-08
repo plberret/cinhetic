@@ -1,0 +1,70 @@
+<?php
+
+namespace Hetic\SearchBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Medias
+ *
+ * @ORM\Table(name="medias")
+ * @ORM\Entity
+ */
+class Medias
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="legend", type="string", length=120, nullable=true)
+     */
+    private $legend;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=150, nullable=true)
+     */
+    private $picture;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="state", type="boolean", nullable=true)
+     */
+    private $state;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_updated", type="datetime", nullable=true)
+     */
+    private $dateUpdated;
+
+    /**
+     * @var \Film
+     *
+     * @ORM\ManyToOne(targetEntity="Film")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="film_id", referencedColumnName="id")
+     * })
+     */
+    private $film;
+
+
+}

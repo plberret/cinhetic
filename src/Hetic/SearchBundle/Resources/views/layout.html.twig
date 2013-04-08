@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<header>
+		<div class="navbar ">
+			<div class="navbar-inner">
+				<a class="brand" href="{{ path('hetic_search_homepage') }}">Cin'Hetic</a>
+				<ul class="nav">
+					<li class="divider-vertical"></li>
+					<li><a href="{{ path('hetic_search_homepage') }}">Rechercher</a></li>
+					<li class="divider-vertical"></li>
+					<li><a href="{{ path('hetic_search_about') }}">About</a></li>
+					<li class="divider-vertical"></li>
+					<li><a href="{{ path('hetic_search_contact') }}">Contact</a></li>
+					<li class="divider-vertical"></li>
+				</ul>
+			</div>
+		</div><!-- end navbar -->
+	</header>
+
+	<div class="span12 offset1">
+		{% block content %}
+			<h1>Layout</h1>
+		{% endblock %}
+	</div>
+	
+{% endblock %}

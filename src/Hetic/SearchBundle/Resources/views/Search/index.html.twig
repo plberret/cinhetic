@@ -1,0 +1,12 @@
+{% extends "HeticSearchBundle::layout.html.twig" %}
+
+
+{% block content %}
+	<h1>Rechercher un film</h1>
+	{% include "HeticSearchBundle:Form:search_form.html.twig" %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+{% endblock %}
