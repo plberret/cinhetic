@@ -11,7 +11,12 @@ class FilmType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+			->add('title')
+			->add('category', 'entity', array(
+			  'class'    => 'HeticSearchBundle:Categorie',
+			  'property' => 'title',
+			  'multiple' => false)
+			)
         ;
     }
 

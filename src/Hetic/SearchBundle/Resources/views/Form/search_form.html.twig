@@ -1,6 +1,37 @@
-<form method="post" action="{{ path('hetic_search_homepage') }}" {{ form_enctype(form) }} class="well">
+<form method="post" action="{{ path('hetic_search_result') }}" {{ form_enctype(form) }} class="well">
+	<legend>Rechercher un film</legend>
 	<fieldset>
-		{{ form_widget(form) }}
-		<button type="submit" class="btn btn-primary">Rechercher</button>
+		{{ form_errors(form) }}
+		
+		<div class="row">
+			<div class="span4">
+				{{ form_label(form.title, "Nom du fim") }}
+				{{ form_errors(form.title) }}
+				{{ form_widget(form.title) }}
+				<div id="ajaxFilm"></div>
+			</div>
+			<div class="span4">
+				{{ form_label(form.category, "Catégorie") }}
+				{{ form_errors(form.category) }}
+				{{ form_widget(form.category) }}
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			{{ form_rest(form) }}
+			<div class="span3">
+				<span>Résultats par page : </span>
+				<select name="nb" id="nb">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+			</div>
+		</div>
+		<hr />
+		<button type="submit" class="btn btn-primary">Envoyer</button>
 	</fieldset>
 </form>

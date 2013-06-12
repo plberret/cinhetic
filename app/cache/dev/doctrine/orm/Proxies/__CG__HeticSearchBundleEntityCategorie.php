@@ -75,10 +75,28 @@ class Categorie extends \Hetic\SearchBundle\Entity\Categorie implements \Doctrin
         return parent::getTitle();
     }
 
+    public function addFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->__load();
+        return parent::addFilm($film);
+    }
+
+    public function removeFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->__load();
+        return parent::removeFilm($film);
+    }
+
+    public function getFilm()
+    {
+        $this->__load();
+        return parent::getFilm();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'parentId', 'title');
+        return array('__isInitialized__', 'id', 'parentId', 'title', 'film');
     }
 
     public function __clone()

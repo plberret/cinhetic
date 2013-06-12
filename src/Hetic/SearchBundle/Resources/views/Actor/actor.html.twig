@@ -1,0 +1,42 @@
+{% extends "HeticSearchBundle::layout.html.twig" %}
+
+
+{% block content %}
+	<div class="row">
+		<h1 class="span8" style="font-size: 28px;">{{ actor.prenom }} {{ actor.nom }}</h1>
+	</div>
+	<div>
+		<ul class="inline well well-small">
+			{% if actor.dob != null %}
+				<li><strong>Date de naissance: </strong>{{ actor.dob|date("d M Y") }}</li>
+			{% endif %}
+		</ul>
+	</div>
+	
+	{% if actor.film[0] is defined %}
+		<div class="cross_selling">
+			<h3>Films de l'acteur</h3>
+			<div>
+				<ul class="thumbnails">
+					{% for film in actor.film %}
+						<li class="span5">
+							<div class="thumbnail">
+								{% if film.medias[0] is defined %}
+									<img src="{{ asset('images/films') }}/{{ film.medias[0].picture}}" alt="{{ film.medias[0].legend}}" style="width: 90%;height: auto;margin: 20px auto;">
+								{% else %}
+									<img src="{{ asset('images/films') }}/not-found.jpg" alt="image not found" style="width: 90%;height: auto;margin: 20px auto;">
+								{% endif %}
+								<div class="caption">
+									<h4 style="line-height: 26px;"><a href="{{ path('hetic_search_view', { 'id': film.id }) }}">{{ film.title }}</a></h4>
+									<p>{{ film.synopsis | truncate(220, true, '...') }}</p>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<hr />
+	{% endif %}
+		
+{% endblock %}

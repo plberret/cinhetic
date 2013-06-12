@@ -88,12 +88,22 @@ class Film
     /**
      * @var \Categorie
      *
-     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="film")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
      */
     private $category;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="Medias", mappedBy="film", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+	 */
+    private $medias;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="film", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+	 */
+	private $commentaires;
 
     /**
      * Constructor
@@ -340,5 +350,71 @@ class Film
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \Hetic\SearchBundle\Entity\Commentaire $commentaires
+     * @return Film
+     */
+    public function addCommentaire(\Hetic\SearchBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+    
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \Hetic\SearchBundle\Entity\Commentaire $commentaires
+     */
+    public function removeCommentaire(\Hetic\SearchBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
+    /**
+     * Add medias
+     *
+     * @param \Hetic\SearchBundle\Entity\Medias $medias
+     * @return Film
+     */
+    public function addMedia(\Hetic\SearchBundle\Entity\Medias $medias)
+    {
+        $this->medias[] = $medias;
+    
+        return $this;
+    }
+
+    /**
+     * Remove medias
+     *
+     * @param \Hetic\SearchBundle\Entity\Medias $medias
+     */
+    public function removeMedia(\Hetic\SearchBundle\Entity\Medias $medias)
+    {
+        $this->medias->removeElement($medias);
+    }
+
+    /**
+     * Get medias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedias()
+    {
+        return $this->medias;
     }
 }

@@ -11,6 +11,7 @@ class __TwigTemplate_e40094a6b0688d9078a4861e7e595aaa extends Twig_Template
 
         $this->blocks = array(
             'body' => array($this, 'block_body'),
+            'leftcol' => array($this, 'block_leftcol'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -57,23 +58,57 @@ class __TwigTemplate_e40094a6b0688d9078a4861e7e595aaa extends Twig_Template
 \t\t\t</div>
 \t\t</div><!-- end navbar -->
 \t</header>
-
-\t<div class=\"span12 offset1\">
+\t
+\t";
+        // line 21
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session"), "flashbag"), "get", array(0 => "info"), "method"));
+        foreach ($context['_seq'] as $context["_key"] => $context["flashMessage"]) {
+            // line 22
+            echo "\t<div class=\"flash-notice alert alert-success span11 offset1\">
 \t\t";
-        // line 22
+            // line 23
+            echo twig_escape_filter($this->env, (isset($context["flashMessage"]) ? $context["flashMessage"] : $this->getContext($context, "flashMessage")), "html", null, true);
+            echo "
+\t</div>
+\t";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flashMessage'], $context['_parent'], $context['loop']);
+        $context = array_merge($_parent, array_intersect_key($context, $_parent));
+        // line 26
+        echo "\t
+\t<div class=\"row offset1\">
+\t\t<div class=\"span3\">
+\t\t\t";
+        // line 29
+        $this->displayBlock('leftcol', $context, $blocks);
+        // line 32
+        echo "\t\t</div>
+\t\t<div class=\"span10\">
+\t\t\t";
+        // line 34
         $this->displayBlock('content', $context, $blocks);
-        // line 25
-        echo "\t</div>
+        // line 35
+        echo "\t\t</div>
+\t</div>
 \t
 ";
     }
 
-    // line 22
+    // line 29
+    public function block_leftcol($context, array $blocks = array())
+    {
+        // line 30
+        echo "\t\t\t\t";
+        echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("HeticSearchBundle:Default:leftCol"));
+        echo "
+\t\t\t";
+    }
+
+    // line 34
     public function block_content($context, array $blocks = array())
     {
-        // line 23
-        echo "\t\t\t<h1>Layout</h1>
-\t\t";
     }
 
     public function getTemplateName()
@@ -88,6 +123,6 @@ class __TwigTemplate_e40094a6b0688d9078a4861e7e595aaa extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  75 => 23,  72 => 22,  66 => 25,  64 => 22,  53 => 14,  48 => 12,  43 => 10,  37 => 7,  32 => 4,  29 => 3,);
+        return array (  110 => 34,  103 => 30,  100 => 29,  93 => 35,  91 => 34,  87 => 32,  80 => 26,  68 => 22,  64 => 21,  54 => 14,  44 => 10,  38 => 7,  33 => 4,  30 => 3,  154 => 50,  149 => 49,  146 => 48,  138 => 42,  127 => 39,  124 => 38,  118 => 36,  108 => 34,  106 => 33,  102 => 32,  99 => 31,  95 => 30,  85 => 29,  74 => 19,  71 => 23,  65 => 16,  55 => 14,  53 => 13,  49 => 12,  46 => 11,  42 => 10,  35 => 5,  32 => 4,  29 => 3,);
     }
 }

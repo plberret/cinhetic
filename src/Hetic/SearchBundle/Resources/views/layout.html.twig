@@ -17,11 +17,22 @@
 			</div>
 		</div><!-- end navbar -->
 	</header>
-
-	<div class="span12 offset1">
-		{% block content %}
-			<h1>Layout</h1>
-		{% endblock %}
+	
+	{% for flashMessage in app.session.flashbag.get('info') %}
+	<div class="flash-notice alert alert-success span11 offset1">
+		{{ flashMessage }}
+	</div>
+	{% endfor %}
+	
+	<div class="row offset1">
+		<div class="span3">
+			{% block leftcol %}
+				{{ render(controller("HeticSearchBundle:Default:leftCol")) }}
+			{% endblock %}
+		</div>
+		<div class="span10">
+			{% block content %}{% endblock %}
+		</div>
 	</div>
 	
 {% endblock %}

@@ -35,6 +35,14 @@ class Medias
      */
     private $picture;
 
+ 	/**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string", length=150, nullable=true)
+     */
+    private $video;
+
+
     /**
      * @var boolean
      *
@@ -59,7 +67,7 @@ class Medias
     /**
      * @var \Film
      *
-     * @ORM\ManyToOne(targetEntity="Film")
+     * @ORM\ManyToOne(targetEntity="Film", inversedBy="medias")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="film_id", referencedColumnName="id")
      * })
@@ -214,5 +222,28 @@ class Medias
     public function getFilm()
     {
         return $this->film;
+    }
+
+    /**
+     * Set video
+     *
+     * @param string $video
+     * @return Medias
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string 
+     */
+    public function getVideo()
+    {
+        return $this->video;
     }
 }

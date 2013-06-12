@@ -35,6 +35,14 @@ class Medias
      */
     private $picture;
 
+ 	/**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string", length=150, nullable=true)
+     */
+    private $video;
+
+
     /**
      * @var boolean
      *
@@ -59,7 +67,7 @@ class Medias
     /**
      * @var \Film
      *
-     * @ORM\ManyToOne(targetEntity="Film")
+     * @ORM\ManyToOne(targetEntity="Film", inversedBy="medias")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="film_id", referencedColumnName="id")
      * })
@@ -67,4 +75,152 @@ class Medias
     private $film;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set legend
+     *
+     * @param string $legend
+     * @return Medias
+     */
+    public function setLegend($legend)
+    {
+        $this->legend = $legend;
+    
+        return $this;
+    }
+
+    /**
+     * Get legend
+     *
+     * @return string 
+     */
+    public function getLegend()
+    {
+        return $this->legend;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     * @return Medias
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string 
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set state
+     *
+     * @param boolean $state
+     * @return Medias
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return boolean 
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     * @return Medias
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * Set dateUpdated
+     *
+     * @param \DateTime $dateUpdated
+     * @return Medias
+     */
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->dateUpdated = $dateUpdated;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateUpdated
+     *
+     * @return \DateTime 
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * Set film
+     *
+     * @param \Hetic\SearchBundle\Entity\Film $film
+     * @return Medias
+     */
+    public function setFilm(\Hetic\SearchBundle\Entity\Film $film = null)
+    {
+        $this->film = $film;
+    
+        return $this;
+    }
+
+    /**
+     * Get film
+     *
+     * @return \Hetic\SearchBundle\Entity\Film 
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
 }

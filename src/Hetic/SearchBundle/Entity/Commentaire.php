@@ -52,14 +52,18 @@ class Commentaire
     /**
      * @var \Film
      *
-     * @ORM\ManyToOne(targetEntity="Film")
+     * @ORM\ManyToOne(targetEntity="Film", inversedBy="commentaires")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="film_id", referencedColumnName="id")
      * })
      */
     private $film;
 
-
+	
+	public function __construct()
+	{
+	    $this->dateCreated = new \Datetime();
+	}
 
     /**
      * Get id

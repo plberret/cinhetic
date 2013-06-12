@@ -1,0 +1,28 @@
+{% extends "HeticSearchBundle::layout.html.twig" %}
+
+
+{% block content %}
+	<div class="row">
+		<h1 class="span8" style="font-size: 28px;">{{ category.title }}</h1>
+	</div>
+	<hr />
+	<h2 style="font-size: 20px;">Films appartenant à la catégorie</h2>
+	<ul class="thumbnails">
+		{% for film in category.film %}
+			<li class="span5">
+				<div class="thumbnail">
+					{% if film.medias[0] is defined %}
+						<img src="{{ asset('images/films') }}/{{ film.medias[0].picture}}" alt="{{ film.medias[0].legend}}" style="width: 90%;height: auto;margin: 20px auto;">
+					{% else %}
+						<img src="{{ asset('images/films') }}/not-found.jpg" alt="image not found" style="width: 90%;height: auto;margin: 20px auto;">
+					{% endif %}
+					<div class="caption">
+						<h4 style="line-height: 26px;"><a href="{{ path('hetic_search_view', { 'id': film.id }) }}">{{ film.title }}</a></h4>
+						<p>{{ film.synopsis | truncate(220, true, '...') }}</p>
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+		
+{% endblock %}

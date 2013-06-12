@@ -1,0 +1,51 @@
+{% extends "HeticSearchBundle::layout.html.twig" %}
+	
+	{% block content %}
+		{% include "HeticSearchBundle:Form:search_form.html.twig" %}
+		
+		<div>
+			<h3 style="font-size: 20px;"><span class="icon-heart" style="vertical-align: 0px;"></span> Films les plus populaires</h3>
+			<div>
+				<ul class="thumbnails">
+					{% for film in best_films %}
+						<li class="span2">
+							<a href="{{ path('hetic_search_view', { 'id': film.id }) }}">
+								{% if film.medias[0] is defined %}
+									<img src="{{ asset('images/films') }}/{{ film.medias[0].picture}}" alt="{{ film.medias[0].legend}}" style="auto; height: width: 200px; margin: 10px auto;">
+								{% else %}
+									<img src="{{ asset('images/films') }}/not-found.jpg" alt="image not found" style="auto; height: width: 200px; margin: 10px auto;">
+								{% endif %}
+							</a>
+							<a href="{{ path('hetic_search_view', { 'id': film.id }) }}">{{ film.title }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<hr />
+		<div>
+			<h3 style="font-size: 20px;"><span class="icon-eye-open" style="vertical-align: 0px;"></span> Derniers films ajoutés</h3>
+			<div>
+				<ul class="thumbnails">
+					{% for film in last_films %}
+						<li class="span2">
+							<a href="{{ path('hetic_search_view', { 'id': film.id }) }}">
+								{% if film.medias[0] is defined %}
+									<img src="{{ asset('images/films') }}/{{ film.medias[0].picture}}" alt="{{ film.medias[0].legend}}" style="auto; height: width: 200px; margin: 10px auto;">
+								{% else %}
+									<img src="{{ asset('images/films') }}/not-found.jpg" alt="image not found" style="auto; height: width: 200px; margin: 10px auto;">
+								{% endif %}
+							</a>
+							<a href="{{ path('hetic_search_view', { 'id': film.id }) }}">{{ film.title }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		
+	{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+{% endblock %}

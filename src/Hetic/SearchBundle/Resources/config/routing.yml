@@ -2,13 +2,21 @@ hetic_search_homepage:
     pattern:  /
     defaults: { _controller: HeticSearchBundle:Default:index }
     
-hetic_search_view:
-    pattern:  /film/{id}
-    defaults: { _controller: HeticSearchBundle:Default:see }
-    
 hetic_search_result:
     pattern:  /result
     defaults: { _controller: HeticSearchBundle:Default:result }
+    
+hetic_search_view:
+    pattern:  /film/{id}
+    defaults: { _controller: HeticSearchBundle:Default:seeFilm }
+
+hetic_search_category_view:
+    pattern:  /category/{id}
+    defaults: { _controller: HeticSearchBundle:Default:seeCategory }
+    
+hetic_search_acteur_view:
+    pattern:  /actor/{id}
+    defaults: { _controller: HeticSearchBundle:Default:seeActor }
     
 hetic_search_about:
     pattern:  /about

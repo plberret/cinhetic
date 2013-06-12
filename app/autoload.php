@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set ('Europe/Paris');
+
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = require __DIR__.'/../vendor/autoload.php';

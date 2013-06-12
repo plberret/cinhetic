@@ -206,19 +206,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::indexAction',  '_route' => 'hetic_search_homepage',);
         }
 
-        // hetic_search_view
-        if (0 === strpos($pathinfo, '/film') && preg_match('#^/film/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'hetic_search_view')), array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::seeAction',));
-        }
-
         // hetic_search_result
         if ($pathinfo === '/result') {
             return array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::resultAction',  '_route' => 'hetic_search_result',);
         }
 
-        // hetic_search_about
-        if ($pathinfo === '/about') {
-            return array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::aboutAction',  '_route' => 'hetic_search_about',);
+        // hetic_search_view
+        if (0 === strpos($pathinfo, '/film') && preg_match('#^/film/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'hetic_search_view')), array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::seeFilmAction',));
+        }
+
+        // hetic_search_category_view
+        if (0 === strpos($pathinfo, '/category') && preg_match('#^/category/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'hetic_search_category_view')), array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::seeCategoryAction',));
+        }
+
+        if (0 === strpos($pathinfo, '/a')) {
+            // hetic_search_acteur_view
+            if (0 === strpos($pathinfo, '/actor') && preg_match('#^/actor/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hetic_search_acteur_view')), array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::seeActorAction',));
+            }
+
+            // hetic_search_about
+            if ($pathinfo === '/about') {
+                return array (  '_controller' => 'Hetic\\SearchBundle\\Controller\\DefaultController::aboutAction',  '_route' => 'hetic_search_about',);
+            }
+
         }
 
         // hetic_search_contact

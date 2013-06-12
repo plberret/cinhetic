@@ -50,4 +50,93 @@ class Tag
         $this->film = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Tag
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Tag
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Add film
+     *
+     * @param \Hetic\SearchBundle\Entity\Film $film
+     * @return Tag
+     */
+    public function addFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->film[] = $film;
+    
+        return $this;
+    }
+
+    /**
+     * Remove film
+     *
+     * @param \Hetic\SearchBundle\Entity\Film $film
+     */
+    public function removeFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->film->removeElement($film);
+    }
+
+    /**
+     * Get film
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
 }

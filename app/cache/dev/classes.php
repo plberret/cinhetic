@@ -4435,7 +4435,7 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.12.2';
+const VERSION ='1.12.3';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -4782,15 +4782,15 @@ return $this->visitors;
 }
 public function addFilter($name, $filter = null)
 {
-if ($this->extensionInitialized) {
-throw new LogicException(sprintf('Unable to add filter "%s" as extensions have already been initialized.', $name));
-}
 if (!$name instanceof Twig_SimpleFilter && !($filter instanceof Twig_SimpleFilter || $filter instanceof Twig_FilterInterface)) {
 throw new LogicException('A filter must be an instance of Twig_FilterInterface or Twig_SimpleFilter');
 }
 if ($name instanceof Twig_SimpleFilter) {
 $filter = $name;
 $name = $filter->getName();
+}
+if ($this->extensionInitialized) {
+throw new LogicException(sprintf('Unable to add filter "%s" as extensions have already been initialized.', $name));
 }
 $this->staging->addFilter($name, $filter);
 }
@@ -4832,15 +4832,15 @@ return $this->filters;
 }
 public function addTest($name, $test = null)
 {
-if ($this->extensionInitialized) {
-throw new LogicException(sprintf('Unable to add test "%s" as extensions have already been initialized.', $name));
-}
 if (!$name instanceof Twig_SimpleTest && !($test instanceof Twig_SimpleTest || $test instanceof Twig_TestInterface)) {
 throw new LogicException('A test must be an instance of Twig_TestInterface or Twig_SimpleTest');
 }
 if ($name instanceof Twig_SimpleTest) {
 $test = $name;
 $name = $test->getName();
+}
+if ($this->extensionInitialized) {
+throw new LogicException(sprintf('Unable to add test "%s" as extensions have already been initialized.', $name));
 }
 $this->staging->addTest($name, $test);
 }
@@ -4863,15 +4863,15 @@ return false;
 }
 public function addFunction($name, $function = null)
 {
-if ($this->extensionInitialized) {
-throw new LogicException(sprintf('Unable to add function "%s" as extensions have already been initialized.', $name));
-}
 if (!$name instanceof Twig_SimpleFunction && !($function instanceof Twig_SimpleFunction || $function instanceof Twig_FunctionInterface)) {
 throw new LogicException('A function must be an instance of Twig_FunctionInterface or Twig_SimpleFunction');
 }
 if ($name instanceof Twig_SimpleFunction) {
 $function = $name;
 $name = $function->getName();
+}
+if ($this->extensionInitialized) {
+throw new LogicException(sprintf('Unable to add function "%s" as extensions have already been initialized.', $name));
 }
 $this->staging->addFunction($name, $function);
 }
@@ -5202,6 +5202,7 @@ new Twig_SimpleFilter('join','twig_join_filter'),
 new Twig_SimpleFilter('split','twig_split_filter'),
 new Twig_SimpleFilter('sort','twig_sort_filter'),
 new Twig_SimpleFilter('merge','twig_array_merge'),
+new Twig_SimpleFilter('batch','twig_array_batch'),
 new Twig_SimpleFilter('reverse','twig_reverse_filter', array('needs_environment'=> true)),
 new Twig_SimpleFilter('length','twig_length_filter', array('needs_environment'=> true)),
 new Twig_SimpleFilter('slice','twig_slice', array('needs_environment'=> true)),
@@ -5213,8 +5214,8 @@ new Twig_SimpleFilter('escape','twig_escape_filter', array('needs_environment'=>
 new Twig_SimpleFilter('e','twig_escape_filter', array('needs_environment'=> true,'is_safe_callback'=>'twig_escape_filter_is_safe')),
 );
 if (function_exists('mb_get_info')) {
-$filters['upper'] = new Twig_Filter_Function('twig_upper_filter', array('needs_environment'=> true));
-$filters['lower'] = new Twig_Filter_Function('twig_lower_filter', array('needs_environment'=> true));
+$filters[] = new Twig_SimpleFilter('upper','twig_upper_filter', array('needs_environment'=> true));
+$filters[] = new Twig_SimpleFilter('lower','twig_lower_filter', array('needs_environment'=> true));
 }
 return $filters;
 }
@@ -5391,6 +5392,9 @@ return number_format((float) $number, $decimal, $decimalPoint, $thousandSep);
 }
 function twig_urlencode_filter($url, $raw = false)
 {
+if (is_array($url)) {
+return http_build_query($url,'','&');
+}
 if ($raw) {
 return rawurlencode($url);
 }
@@ -5761,6 +5765,22 @@ if (null !== $object) {
 $constant = get_class($object).'::'.$constant;
 }
 return constant($constant);
+}
+function twig_array_batch($items, $size, $fill = null)
+{
+if ($items instanceof Traversable) {
+$items = iterator_to_array($items, false);
+}
+$size = ceil($size);
+$result = array_chunk($items, $size, true);
+if (null !== $fill) {
+$last = count($result) - 1;
+$result[$last] = array_merge(
+$result[$last],
+array_fill(0, $size - count($result[$last]), $fill)
+);
+}
+return $result;
 }
 }
 namespace

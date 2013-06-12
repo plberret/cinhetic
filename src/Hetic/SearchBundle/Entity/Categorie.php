@@ -35,6 +35,10 @@ class Categorie
      */
     private $title;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="Film", mappedBy="category", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+	 */
+	private $film;
 
 
     /**
@@ -91,5 +95,45 @@ class Categorie
     public function getTitle()
     {
         return $this->title;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->film = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add film
+     *
+     * @param \Hetic\SearchBundle\Entity\Film $film
+     * @return Categorie
+     */
+    public function addFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->film[] = $film;
+    
+        return $this;
+    }
+
+    /**
+     * Remove film
+     *
+     * @param \Hetic\SearchBundle\Entity\Film $film
+     */
+    public function removeFilm(\Hetic\SearchBundle\Entity\Film $film)
+    {
+        $this->film->removeElement($film);
+    }
+
+    /**
+     * Get film
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFilm()
+    {
+        return $this->film;
     }
 }
